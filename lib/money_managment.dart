@@ -19,6 +19,16 @@ class _MoneyManagmentState extends State<MoneyManagment>
       _earning.fold(0, (sum, item) => sum + item['amount']);
   double get balance => totalEarning - totalExpense;
 
+  void addEntry(String title, double amount, DateTime date, bool isEarning) {
+    setState(() {
+      if (isEarning) {
+        _earning.add({"title": title, "amount": amount, "date": date});
+      } else {
+        _expense.add({"title": title, "amount": amount, "date": date});
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();

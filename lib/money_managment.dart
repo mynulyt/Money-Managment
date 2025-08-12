@@ -7,8 +7,17 @@ class MoneyManagment extends StatefulWidget {
   State<MoneyManagment> createState() => _MoneyManagmentState();
 }
 
-class _MoneyManagmentState extends State<MoneyManagment> {
+class _MoneyManagmentState extends State<MoneyManagment>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +54,37 @@ class _MoneyManagmentState extends State<MoneyManagment> {
             ],
           ),
           SizedBox(height: 10),
-          TabBarView(controller: _tabController, children: []),
+          TabBarView(
+            controller: _tabController,
+            children: [buldCard(), buldCard()],
+          ),
         ],
       ),
+    );
+  }
+
+  ListView buldCard() {
+    return ListView.builder(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return Card(
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.black45,
+              child: Icon(Icons.arrow_upward),
+            ),
+            title: Text("Title"),
+            subtitle: Text("Subtile"),
+            trailing: Text(
+              "tk",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white54,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

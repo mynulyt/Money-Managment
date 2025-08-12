@@ -10,6 +10,8 @@ class MoneyManagment extends StatefulWidget {
 class _MoneyManagmentState extends State<MoneyManagment>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  List<Map<String, dynamic>> _expense = [];
+  List<Map<String, dynamic>> _earn = [];
 
   @override
   void initState() {
@@ -41,9 +43,9 @@ class _MoneyManagmentState extends State<MoneyManagment>
           children: [
             Row(
               children: [
-                buildCardSummary(),
-                buildCardSummary(),
-                buildCardSummary(),
+                _buildCardSummary("Earning", 500, Colors.green),
+                _buildCardSummary("Expense", 200, Colors.red),
+                _buildCardSummary("T\balance", 300, Colors.blue),
               ],
             ),
             SizedBox(height: 10),
@@ -59,20 +61,17 @@ class _MoneyManagmentState extends State<MoneyManagment>
     );
   }
 
-  Widget buildCardSummary() {
+  Widget _buildCardSummary(String title, double value, Color color) {
     return Expanded(
       child: Card(
-        color: Colors.green,
+        color: color,
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
+              Text(title, style: TextStyle(fontSize: 16, color: Colors.white)),
               Text(
-                "Earing",
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
-              Text(
-                "500 TK",
+                "${value}tk",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

@@ -169,28 +169,25 @@ class _MoneyManagmentState extends State<MoneyManagment>
             Row(
               children: [
                 _buildCardSummary(
-                  title: "Earningh",
-                  value: 500,
+                  title: "Earning",
+                  value: totalEarning,
                   color: Colors.green,
                 ),
                 _buildCardSummary(
-                  title: "Earningh",
-                  value: 500,
-                  color: Colors.green,
+                  title: "Expense",
+                  value: totalExpense,
+                  color: Colors.red,
                 ),
                 _buildCardSummary(
-                  title: "Earningh",
-                  value: 500,
-                  color: Colors.green,
+                  title: "T/Balance",
+                  value: balance,
+                  color: Colors.blue,
                 ),
               ],
             ),
             SizedBox(height: 10),
             Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [buldCard(), buldCard()],
-              ),
+              child: TabBarView(controller: _tabController, children: []),
             ),
           ],
         ),
@@ -226,20 +223,26 @@ class _MoneyManagmentState extends State<MoneyManagment>
     );
   }
 
-  Widget buldCard() {
+  Widget _buldCard(
+    List<Map<String, dynamic>> items,
+    Color color,
+    bool isEarning,
+  ) {
     return ListView.builder(
-      itemCount: 10,
+      itemCount: items.length,
       itemBuilder: (context, index) {
         return Card(
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.black45,
-              child: Icon(Icons.arrow_upward),
+              child: Icon(
+                isEarning ? Icons.arrow_upward : Icons.arrow_downward,
+              ),
             ),
-            title: Text("Title"),
-            subtitle: Text("Subtile"),
+            title: Text(items[index]['title']),
+            subtitle: Text(items[index]['date'].toString()),
             trailing: Text(
-              "tk",
+              "৳${items[index]['amount']}",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white54,

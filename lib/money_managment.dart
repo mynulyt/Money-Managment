@@ -49,8 +49,23 @@ class _MoneyManagmentState extends State<MoneyManagment>
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
                 onPressed: () {
                   Navigator.pop(context);
+                  _showForm(isEarning: true);
                 },
-                child: Text("Add Earning"),
+                child: Text(
+                  "Add Earning",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                onPressed: () {
+                  Navigator.pop(context);
+                  _showForm(isEarning: false);
+                },
+                child: Text(
+                  "Add Earning",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
@@ -72,7 +87,11 @@ class _MoneyManagmentState extends State<MoneyManagment>
             children: [
               Text(
                 isEarning ? 'Add Earning' : 'Add Expense',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 15),
               TextField(
@@ -111,7 +130,7 @@ class _MoneyManagmentState extends State<MoneyManagment>
                   },
                   child: Text(
                     isEarning ? 'Add Earning' : "Add Expense",
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
               ),
@@ -138,6 +157,10 @@ class _MoneyManagmentState extends State<MoneyManagment>
             Tab(text: "Expense", icon: Icon(Icons.arrow_downward)),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showFABOptions(context),
+        child: Icon(Icons.add),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),

@@ -10,6 +10,14 @@ class MoneyManagment extends StatefulWidget {
 class _MoneyManagmentState extends State<MoneyManagment> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.lightBlue,
+        title: Text(
+          "Money Management",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
   }
 }

@@ -105,7 +105,7 @@ class _MoneyManagmentState extends State<MoneyManagment>
               TextField(
                 controller: amountController,
                 decoration: InputDecoration(
-                  label: Text("Title"),
+                  label: Text("Amount"),
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -187,7 +187,13 @@ class _MoneyManagmentState extends State<MoneyManagment>
             ),
             SizedBox(height: 10),
             Expanded(
-              child: TabBarView(controller: _tabController, children: []),
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  _buldCard(_earning, Colors.green, true),
+                  _buldCard(_expense, Colors.red, false),
+                ],
+              ),
             ),
           ],
         ),

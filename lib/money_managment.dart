@@ -19,7 +19,7 @@ class _MoneyManagmentState extends State<MoneyManagment>
       _earning.fold(0, (sum, item) => sum + item['amount']);
   double get balance => totalEarning - totalExpense;
 
-  void addEntry(String title, double amount, DateTime date, bool isEarning) {
+  void _addEntry(String title, double amount, DateTime date, bool isEarning) {
     setState(() {
       if (isEarning) {
         _earning.add({"title": title, "amount": amount, "date": date});
@@ -59,6 +59,69 @@ class _MoneyManagmentState extends State<MoneyManagment>
     );
   }
 
+  void _showForm({required bool isEarning}) {
+    TextEditingController titleController = TextEditingController();
+    TextEditingController amountController = TextEditingController();
+    DateTime entryDate = DateTime.now();
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.all(18),
+          child: Column(
+            children: [
+              Text(
+                isEarning ? 'Add Earning' : 'Add Expense',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 15),
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(
+                  label: Text("Title"),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 15),
+              TextField(
+                controller: amountController,
+                decoration: InputDecoration(
+                  label: Text("Title"),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: isEarning ? Colors.green : Colors.red,
+                  ),
+
+                  onPressed: () {
+                    if (titleController.text.isEmpty &&
+                        amountController.text.isEmpty) {
+                      _addEntry(
+                        titleController.text,
+                        double.parse(amountController.text),
+                        entryDate,
+                        isEarning,
+                      );
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: Text(
+                    isEarning ? 'Add Earning' : "Add Expense",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,9 +145,21 @@ class _MoneyManagmentState extends State<MoneyManagment>
           children: [
             Row(
               children: [
-                _buildCardSummary("Earning", 500, Colors.green),
-                _buildCardSummary("Expense", 200, Colors.red),
-                _buildCardSummary("T\balance", 300, Colors.blue),
+                _buildCardSummary(
+                  title: "Earningh",
+                  value: 500,
+                  color: Colors.green,
+                ),
+                _buildCardSummary(
+                  title: "Earningh",
+                  value: 500,
+                  color: Colors.green,
+                ),
+                _buildCardSummary(
+                  title: "Earningh",
+                  value: 500,
+                  color: Colors.green,
+                ),
               ],
             ),
             SizedBox(height: 10),
@@ -100,7 +175,11 @@ class _MoneyManagmentState extends State<MoneyManagment>
     );
   }
 
-  Widget _buildCardSummary(String title, double value, Color color) {
+  Widget _buildCardSummary({
+    required String title,
+    required double value,
+    required Color color,
+  }) {
     return Expanded(
       child: Card(
         color: color,

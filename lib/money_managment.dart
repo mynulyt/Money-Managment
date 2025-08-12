@@ -11,7 +11,13 @@ class _MoneyManagmentState extends State<MoneyManagment>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   List<Map<String, dynamic>> _expense = [];
-  List<Map<String, dynamic>> _earn = [];
+  List<Map<String, dynamic>> _earning = [];
+
+  double get totalExpense =>
+      _expense.fold(0, (sum, item) => sum + item['amount']);
+  double get totalEarning =>
+      _earning.fold(0, (sum, item) => sum + item['amount']);
+  double get balance => totalEarning - totalExpense;
 
   @override
   void initState() {

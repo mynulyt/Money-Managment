@@ -117,8 +117,8 @@ class _MoneyManagmentState extends State<MoneyManagment>
                   ),
 
                   onPressed: () {
-                    if (titleController.text.isEmpty &&
-                        amountController.text.isEmpty) {
+                    if (titleController.text.isNotEmpty &&
+                        amountController.text.isNotEmpty) {
                       _addEntry(
                         titleController.text,
                         double.parse(amountController.text),
@@ -152,7 +152,20 @@ class _MoneyManagmentState extends State<MoneyManagment>
         ),
         bottom: TabBar(
           controller: _tabController,
-          tabs: [
+          labelStyle: const TextStyle(
+            // ✅ Selected tab style
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            // ✅ Unselected tab style
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+          ),
+          labelColor: Colors.white, // ✅ Selected tab text color
+          unselectedLabelColor: Colors.white70, // ✅ Unselected tab text color
+          indicatorColor: Colors.yellow, // ✅ Indicator line color
+          tabs: const [
             Tab(text: "Earning", icon: Icon(Icons.arrow_upward)),
             Tab(text: "Expense", icon: Icon(Icons.arrow_downward)),
           ],
@@ -215,7 +228,7 @@ class _MoneyManagmentState extends State<MoneyManagment>
             children: [
               Text(title, style: TextStyle(fontSize: 16, color: Colors.white)),
               Text(
-                "${value}tk",
+                "${value} ৳",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -240,9 +253,10 @@ class _MoneyManagmentState extends State<MoneyManagment>
         return Card(
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: Colors.black45,
+              backgroundColor: isEarning ? Colors.green : Colors.red,
               child: Icon(
                 isEarning ? Icons.arrow_upward : Icons.arrow_downward,
+                color: Colors.white,
               ),
             ),
             title: Text(items[index]['title']),
